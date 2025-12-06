@@ -1,12 +1,7 @@
-import { createInterface } from "node:readline";
-import { getCommands } from "./get-commands.js";
+import { State } from "./state.js";
 
-export async function startREPL() {
-  const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    prompt: "Pokedex > ",
-  });
+export async function startREPL(state: State) {
+  const { rl, commands } = state;
 
   rl.prompt();
 
@@ -16,7 +11,6 @@ export async function startREPL() {
       rl.prompt();
     }
     const commandName = cleanedInput[0];
-    const commands = getCommands();
     const currentCommand = commands[commandName];
     if (!currentCommand) {
       console.log(
@@ -26,7 +20,7 @@ export async function startREPL() {
     }
 
     try {
-      currentCommand.callback(commands);
+      currentCommand.callback(state);
     } catch (err) {
       console.log(err);
     }
