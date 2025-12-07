@@ -7,6 +7,7 @@ import { commandMapb } from "./command-mapb.js";
 import { commandExplore } from "./command-explore.js";
 import { commandCatch } from "./command-catch.js";
 import { commandInspect } from "./command-inspect.js";
+import { commandPokedex } from "./command-pokedex.js";
 
 export function getCommands(): Record<string, CLICommand> {
   return {
@@ -44,6 +45,11 @@ export function getCommands(): Record<string, CLICommand> {
       name: "inspect <pokemon_name",
       description: "View details about a caught Pokemon",
       callback: commandInspect,
+    },
+    pokedex: {
+      name: "pokedex",
+      description: "See all the Pokemon you've caught",
+      callback: commandPokedex,
     },
   };
 }
