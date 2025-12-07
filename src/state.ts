@@ -16,7 +16,7 @@ export type State = {
   prevLocationURL: string | null;
 };
 
-export async function initState() {
+export async function initState(cacheInterval: number) {
   const rl = createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -25,7 +25,7 @@ export async function initState() {
 
   const commands = getCommands();
 
-  const pokeAPI = new PokeAPI();
+  const pokeAPI = new PokeAPI(cacheInterval);
   const nextLocationURL =
     "https://pokeapi.co/api/v2/location-area/?offset=0&limit=20";
   const prevLocationURL = null;
