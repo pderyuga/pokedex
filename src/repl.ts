@@ -10,7 +10,7 @@ export function startREPL(state: State) {
     if (cleanedInput.length === 0) {
       rl.prompt();
     }
-    const commandName = cleanedInput[0];
+    const [commandName, ...args] = cleanedInput;
     const currentCommand = commands[commandName];
     if (!currentCommand) {
       console.log(
@@ -20,7 +20,7 @@ export function startREPL(state: State) {
     }
 
     try {
-      await currentCommand.callback(state);
+      await currentCommand.callback(state, ...args);
     } catch (err) {
       console.log((err as Error).message);
     }
